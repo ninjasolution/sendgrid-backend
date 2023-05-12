@@ -1,5 +1,5 @@
 module.exports = { 
     secret: "sendgrid-secret-key",
-    sender: "",
+    sender: "melanie@pridewelcome.com",
 
 }

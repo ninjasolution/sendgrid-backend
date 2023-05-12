@@ -1,4 +1,5 @@
 const sgMail = require('@sendgrid/mail');
+require('dotenv').config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const sender = require("../config/index").sender;
 const excel = require("exceljs");
@@ -14,26 +15,26 @@ exports.sendEmail = async (req, res) => {
         for await (const worksheetReader of workbookReader) {
             for await (const row of worksheetReader) {
                 const msg = {
-                    to: row.values[1],
+                    to: row.values[2],
                     from: sender, // Use the email address or domain you verified above
-                    subject: row.values[2],
-                    text: row.values[3],
+                    subject: row.values[3],
+                    text: row.values[4],
                     // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
                 };
 
                 console.log(msg)
 
-                // //ES8
-                // try {
-                //     await sgMail.send(msg);
-                // } catch (error) {
-                //     console.error(error);
+                //ES8
+                try {
+                    await sgMail.send(msg);
+                } catch (error) {
+                    console.error(error);
 
-                //     if (error.response) {
-                //         console.error(error.response.body)
-                //     }
+                    if (error.response) {
+                        console.error(error.response.body)
+                    }
                     
-                // }
+                }
             }
         }
         
